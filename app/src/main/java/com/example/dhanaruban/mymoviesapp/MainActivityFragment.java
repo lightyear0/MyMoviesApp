@@ -40,7 +40,7 @@ public class MainActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        // TODO get movie 
+        // TODO get movie
         flavorAdapter = new AndroidFlavorAdapter(getActivity(), Arrays.asList(androidFlavors));
 
         // Get a reference to the ListView, and attach this adapter to it.
