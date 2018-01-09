@@ -11,9 +11,9 @@ public class Movie {
     private int vote_count;
     private int id;
     private boolean  video;
-    private float vote_average;
+    private double vote_average;
     private String title;
-    private float popularity;
+    private double popularity;
     private String poster_path;
     private String original_language;
     private String original_title;
@@ -47,11 +47,11 @@ public class Movie {
         this.video = video;
     }
 
-    public float getVote_average() {
+    public double getVote_average() {
         return vote_average;
     }
 
-    public void setVote_average(float vote_average) {
+    public void setVote_average(double vote_average) {
         this.vote_average = vote_average;
     }
 
@@ -63,11 +63,11 @@ public class Movie {
         this.title = title;
     }
 
-    public float getPopularity() {
+    public double getPopularity() {
         return popularity;
     }
 
-    public void setPopularity(float popularity) {
+    public void setPopularity(double popularity) {
         this.popularity = popularity;
     }
 
