@@ -25,9 +25,8 @@ public class NetworkUtilsTest {
 
     @Test
     public void buildUrl_isCorrect() throws Exception {
-        NetworkUtils nu = new NetworkUtils();
-        final Mockito mockito = new Mockito(Uri);
-        OngoingStubbing<Uri> uriOngoingStubbing = when(builtUri.parse()).thenAnswer(mockito);
+
+        NetworkUtils nu =  Mockito.mock(NetworkUtils.class);
 
         URL res = nu.buildUrl("ds1328");
         assertEquals ("https://api.github.com/search/repositories/?q=ds1328&sort=stars" , res.toString());

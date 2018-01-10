@@ -10,10 +10,13 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class MoviesDBAdapter extends ArrayAdapter<MoviesDB> {
+public class MoviesDBAdapter extends ArrayAdapter<Movie> {
     private static final String LOG_TAG = MoviesDBAdapter.class.getSimpleName();
+
+    private static final String BASE_PATH = "http://image.tmdb.org/t/p/w185/";
 
     /**
      * This is our own custom constructor (it doesn't mirror a superclass constructor).
@@ -23,7 +26,7 @@ public class MoviesDBAdapter extends ArrayAdapter<MoviesDB> {
      * @param context        The current context. Used to inflate the layout file.
      * @param androidFlavors A List of AndroidFlavor objects to display in a list
      */
-    public MoviesDBAdapter(Activity context, List<MoviesDB> androidFlavors) {
+    public MoviesDBAdapter(Activity context, ArrayList<Movie> androidFlavors) {
         // Here, we initialize the ArrayAdapter's internal storage for the context and the list.
         // the second argument is used when the ArrayAdapter is populating a single TextView.
         // Because this is a custom adapter for two TextViews and an ImageView, the adapter is not
@@ -43,7 +46,7 @@ public class MoviesDBAdapter extends ArrayAdapter<MoviesDB> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Gets the AndroidFlavor object from the ArrayAdapter at the appropriate position
-        MoviesDB androidFlavor = getItem(position);
+        Movie androidFlavor = getItem(position);
 
         // Adapters recycle views to AdapterViews.
         // If this is a new View object we're getting, then inflate the layout.
@@ -57,7 +60,7 @@ public class MoviesDBAdapter extends ArrayAdapter<MoviesDB> {
 
         Context context = getContext();
 
-        Picasso.with(context).load("http://i.imgur.com/DvpvklR.png").into(iconView);
+        Picasso.with(context).load(BASE_PATH + androidFlavor.getPoster_path()).into(iconView);
 
         return convertView;
     }

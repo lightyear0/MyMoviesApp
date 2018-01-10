@@ -6,6 +6,8 @@ package com.example.dhanaruban.mymoviesapp.utilities;
 
 import android.net.Uri;
 
+import com.example.dhanaruban.mymoviesapp.MainActivity;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -18,30 +20,37 @@ import java.util.Scanner;
  */
 public class NetworkUtils {
 
-    final static String GITHUB_BASE_URL =
-            "https://api.github.com/search/repositories";
     final static String MOVIESDB_BASE_URL = "https://api.themoviedb.org/3";
 
-    final static String PARAM_QUERY = "q";
+    final static String PATH_MOVIE_POPULAR = "movie/popular";
 
+    final static String PATH_MOVIE_TOP_RATED = "movie/top_rated";
 
-    /*
-     * The sort field. One of stars, forks, or updated.
-     * Default: results are sorted by best match if no field is specified.
-     */
-    final static String PARAM_SORT = "sort";
-    final static String sortBy = "stars";
+    final static String API_KEY = "api_key";
+
+    final static String PAGE = "page";
 
     /**
      * Builds the URL used to query GitHub.
      *
-     * @param githubSearchQuery The keyword that will be queried for.
+     * @param pageNo The keyword that will be queried for.
      * @return The URL to use to query the GitHub.
      */
-    public static URL buildUrl(String githubSearchQuery) {
-        Uri builtUri = Uri.parse(GITHUB_BASE_URL).buildUpon()
-                .appendQueryParameter(PARAM_QUERY, githubSearchQuery)
-                .appendQueryParameter(PARAM_SORT, sortBy)
+    public static URL buildUrl(String pageNo) {
+        String restPath;
+        //TODO added API Key to here
+        String api_key = "";
+
+        if (MainActivity.getmSortOption() == 1) {
+            restPath = PATH_MOVIE_POPULAR;
+        } else {
+            restPath = PATH_MOVIE_TOP_RATED;
+        }
+
+        Uri builtUri = Uri.parse(MOVIESDB_BASE_URL).buildUpon()
+                .appendEncodedPath(restPath)
+                .appendQueryParameter(API_KEY, api_key)
+                .appendQueryParameter(PAGE, pageNo)
                 .build();
 
         URL url = null;
