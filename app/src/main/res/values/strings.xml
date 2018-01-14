@@ -9,4 +9,5 @@
     <string name="parcel_movie">PARCEL_MOVIE</string>
     <string name="no_summary_found">No summary was found</string>
     <string name="title_activity_movie_details">Movie Details</string>
+    <string name="post_image_missing">Post Image Missing</string>
 </resources>

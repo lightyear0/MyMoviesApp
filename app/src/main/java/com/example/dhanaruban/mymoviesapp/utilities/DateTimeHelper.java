@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by Magnus Ringkjøb
+ * Created by dhanaruban
  * <p/>
  * Helps with date conversion on Android.
  */

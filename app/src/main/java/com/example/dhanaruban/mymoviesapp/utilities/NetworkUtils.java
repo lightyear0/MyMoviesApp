@@ -7,7 +7,6 @@ package com.example.dhanaruban.mymoviesapp.utilities;
 import android.net.Uri;
 
 import com.example.dhanaruban.mymoviesapp.MainActivity;
-import com.example.dhanaruban.mymoviesapp.R;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,15 +20,15 @@ import java.util.Scanner;
  */
 public class NetworkUtils {
 
-    final static String MOVIESDB_BASE_URL = "https://api.themoviedb.org/3";
+    private final static String MOVIESDB_BASE_URL = "https://api.themoviedb.org/3";
 
-    final static String PATH_MOVIE_POPULAR = "movie/popular";
+    private final static String PATH_MOVIE_POPULAR = "movie/popular";
 
-    final static String PATH_MOVIE_TOP_RATED = "movie/top_rated";
+    private final static String PATH_MOVIE_TOP_RATED = "movie/top_rated";
 
-    final static String API_KEY = "api_key";
+    private final static String API_KEY = "api_key";
 
-    final static String PAGE = "page";
+    private final static String PAGE = "page";
 
     /**
      * Builds the URL used to query GitHub.

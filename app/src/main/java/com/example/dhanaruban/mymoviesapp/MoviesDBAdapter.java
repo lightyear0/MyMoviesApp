@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MoviesDBAdapter extends ArrayAdapter<Movie> {
     private static final String LOG_TAG = MoviesDBAdapter.class.getSimpleName();
@@ -56,10 +55,11 @@ public class MoviesDBAdapter extends ArrayAdapter<Movie> {
             convertView = LayoutInflater.from(getContext()).inflate(
                     R.layout.flavor_item, parent, false);
         }
-        ImageView iconView = (ImageView) convertView.findViewById(R.id.flavor_image);
+        ImageView iconView = convertView.findViewById(R.id.flavor_image);
 
         Context context = getContext();
 
+        assert topMopvie != null;
         Picasso.with(context).load(BASE_PATH + topMopvie.getPoster_path()).into(iconView);
 
         return convertView;

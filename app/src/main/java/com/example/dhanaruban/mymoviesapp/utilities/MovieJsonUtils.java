@@ -83,7 +83,7 @@ public final class MovieJsonUtils {
         moviesDB.setTotal_pages(forecastJson.getInt(TOTAL_PAGES));
         moviesDB.setTotal_results(forecastJson.getInt(TOTAL_RESULTS));
 
-        ArrayList<Movie> movies = new ArrayList<Movie>();
+        ArrayList<Movie> movies = new ArrayList<>();
 
 
         for (int i = 0; i < jsonMovies.length(); i++) {
