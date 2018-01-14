@@ -7,6 +7,7 @@ package com.example.dhanaruban.mymoviesapp.utilities;
 import android.net.Uri;
 
 import com.example.dhanaruban.mymoviesapp.MainActivity;
+import com.example.dhanaruban.mymoviesapp.R;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,10 +37,11 @@ public class NetworkUtils {
      * @param pageNo The keyword that will be queried for.
      * @return The URL to use to query the GitHub.
      */
-    public static URL buildUrl(String pageNo) {
+    public static URL buildUrl(String pageNo, String api_key) {
         String restPath;
         //TODO added API Key to here
-        String api_key = "";
+        //String api_key = getString(R.string.api_key);
+        //String api_key = "29346dc366c5346cd0d8d8a4a9b8cc8d";
 
         if (MainActivity.getmSortOption() == 1) {
             restPath = PATH_MOVIE_POPULAR;

@@ -96,7 +96,7 @@ public final class MovieJsonUtils {
 
             topMovie.setVote_count(movie.getInt(VOTE_COUNT));
             topMovie.setId(movie.getInt(ID));
-            topMovie.setVideo(movie.getBoolean(VIDEO));
+            //topMovie.setVideo(movie.getInt(VIDEO));
             topMovie.setVote_average(movie.getDouble(VOTE_AVERAGE));
             topMovie.setTitle(movie.getString(TITLE));
             topMovie.setPopularity(movie.getDouble(POPULARITY));

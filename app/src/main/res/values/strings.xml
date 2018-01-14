@@ -1,6 +1,12 @@
 <resources>
-    <string name="app_name">My Movies App</string>
+    <string name="app_name">Popular Movies</string>
     <string name="most_popular">Most popular</string>
     <string name="top_rated">Top rated</string>
     <string name="error_message">Network connection issue. Please try again.</string>
+    <string name="api_key">29346dc366c5346cd0d8d8a4a9b8cc8d</string>
+    <string name="heading_release_date">Release Date</string>
+    <string name="heading_vote_average">Vote Average</string>
+    <string name="parcel_movie">PARCEL_MOVIE</string>
+    <string name="no_summary_found">No summary was found</string>
+    <string name="title_activity_movie_details">Movie Details</string>
 </resources>
