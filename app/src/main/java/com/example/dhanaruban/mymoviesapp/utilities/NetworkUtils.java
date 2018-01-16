@@ -20,15 +20,15 @@ import java.util.Scanner;
  */
 public class NetworkUtils {
 
-    final static String MOVIESDB_BASE_URL = "https://api.themoviedb.org/3";
+    private final static String MOVIESDB_BASE_URL = "https://api.themoviedb.org/3";
 
-    final static String PATH_MOVIE_POPULAR = "movie/popular";
+    private final static String PATH_MOVIE_POPULAR = "movie/popular";
 
-    final static String PATH_MOVIE_TOP_RATED = "movie/top_rated";
+    private final static String PATH_MOVIE_TOP_RATED = "movie/top_rated";
 
-    final static String API_KEY = "api_key";
+    private final static String API_KEY = "api_key";
 
-    final static String PAGE = "page";
+    private final static String PAGE = "page";
 
     /**
      * Builds the URL used to query GitHub.
@@ -36,10 +36,11 @@ public class NetworkUtils {
      * @param pageNo The keyword that will be queried for.
      * @return The URL to use to query the GitHub.
      */
-    public static URL buildUrl(String pageNo) {
+    public static URL buildUrl(String pageNo, String api_key) {
         String restPath;
         //TODO added API Key to here
-        String api_key = "";
+        //String api_key = getString(R.string.api_key);
+        //String api_key = "29346dc366c5346cd0d8d8a4a9b8cc8d";
 
         if (MainActivity.getmSortOption() == 1) {
             restPath = PATH_MOVIE_POPULAR;

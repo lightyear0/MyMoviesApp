@@ -1,13 +1,14 @@
 package com.example.dhanaruban.mymoviesapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -17,25 +18,19 @@ import com.example.dhanaruban.mymoviesapp.utilities.MovieJsonUtils;
 import com.example.dhanaruban.mymoviesapp.utilities.NetworkUtils;
 
 import org.json.JSONException;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
     private static int mSortOption = 1;
-    private static int mPageNumber = 1;
 
     private TextView mErrorMessageDisplay;
 
     private ProgressBar mLoadingIndicator;
 
-    private GridView mGridView;
-
-    private MoviesDBAdapter moviesDBAdapter;
+    private MoviesDB movies = new MoviesDB();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
         //mLoadingIndicator = (ProgressBar) findViewById(R.id.pb_loading_indicator);
 
-        mGridView = (GridView) findViewById(R.id.flavors_grid);
+        GridView mGridView = findViewById(R.id.flavors_grid);
+        mGridView.setOnItemClickListener(moviePosterClickListener);
 
         makeMovieDBSearchQuery();
 
@@ -59,9 +55,11 @@ public class MainActivity extends AppCompatActivity {
      * that URL in a TextView, and finally fires off an AsyncTask to perform the GET request using
      * our {@link MovieDBQueryTask}
      */
-    public void makeMovieDBSearchQuery() {
+    private void makeMovieDBSearchQuery() {
+        String apiKey = getString(R.string.api_key);
 
-        URL MovieDBSearchUrl = NetworkUtils.buildUrl(Integer.toString(mPageNumber) );
+        int mPageNumber = 1;
+        URL MovieDBSearchUrl = NetworkUtils.buildUrl(Integer.toString(mPageNumber),apiKey );
         new MovieDBQueryTask().execute(MovieDBSearchUrl);
     }
 
@@ -120,17 +118,18 @@ public class MainActivity extends AppCompatActivity {
             if (searchResults != null && !searchResults.equals("")) {
 
                 showJsonDataView();
-                MoviesDB movies = new MoviesDB();
+                //MoviesDB movies = new MoviesDB();
                 try {
                     movies = MovieJsonUtils.getMovieContentValuesFromJson(searchResults);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-                moviesDBAdapter = new MoviesDBAdapter(MainActivity.this, movies.getResults());
+                assert movies != null;
+                MoviesDBAdapter moviesDBAdapter = new MoviesDBAdapter(MainActivity.this, movies.getResults());
 
                 // Get a reference to the ListView, and attach this adapter to it.
-                GridView gridView = (GridView) findViewById(R.id.flavors_grid);
+                GridView gridView = findViewById(R.id.flavors_grid);
                 gridView.setAdapter(moviesDBAdapter);
 
             } else {
@@ -139,6 +138,20 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+
+
+    private final GridView.OnItemClickListener moviePosterClickListener = new GridView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Movie movie = (Movie) parent.getItemAtPosition(position);
+
+            Intent intent = new Intent(getApplicationContext(), MovieDetailsActivity.class);
+            intent.putExtra(getResources().getString(R.string.parcel_movie), movie);
+
+            startActivity(intent);
+        }
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

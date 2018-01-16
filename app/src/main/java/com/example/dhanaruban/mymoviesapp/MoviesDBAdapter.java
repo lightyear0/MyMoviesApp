@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MoviesDBAdapter extends ArrayAdapter<Movie> {
     private static final String LOG_TAG = MoviesDBAdapter.class.getSimpleName();
@@ -46,7 +45,7 @@ public class MoviesDBAdapter extends ArrayAdapter<Movie> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Gets the AndroidFlavor object from the ArrayAdapter at the appropriate position
-        Movie androidFlavor = getItem(position);
+        Movie topMopvie = getItem(position);
 
         // Adapters recycle views to AdapterViews.
         // If this is a new View object we're getting, then inflate the layout.
@@ -56,11 +55,12 @@ public class MoviesDBAdapter extends ArrayAdapter<Movie> {
             convertView = LayoutInflater.from(getContext()).inflate(
                     R.layout.flavor_item, parent, false);
         }
-        ImageView iconView = (ImageView) convertView.findViewById(R.id.flavor_image);
+        ImageView iconView = convertView.findViewById(R.id.flavor_image);
 
         Context context = getContext();
 
-        Picasso.with(context).load(BASE_PATH + androidFlavor.getPoster_path()).into(iconView);
+        assert topMopvie != null;
+        Picasso.with(context).load(BASE_PATH + topMopvie.getPoster_path()).into(iconView);
 
         return convertView;
     }

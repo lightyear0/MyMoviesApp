@@ -83,7 +83,7 @@ public final class MovieJsonUtils {
         moviesDB.setTotal_pages(forecastJson.getInt(TOTAL_PAGES));
         moviesDB.setTotal_results(forecastJson.getInt(TOTAL_RESULTS));
 
-        ArrayList<Movie> movies = new ArrayList<Movie>();
+        ArrayList<Movie> movies = new ArrayList<>();
 
 
         for (int i = 0; i < jsonMovies.length(); i++) {
@@ -96,7 +96,7 @@ public final class MovieJsonUtils {
 
             topMovie.setVote_count(movie.getInt(VOTE_COUNT));
             topMovie.setId(movie.getInt(ID));
-            topMovie.setVideo(movie.getBoolean(VIDEO));
+            //topMovie.setVideo(movie.getInt(VIDEO));
             topMovie.setVote_average(movie.getDouble(VOTE_AVERAGE));
             topMovie.setTitle(movie.getString(TITLE));
             topMovie.setPopularity(movie.getDouble(POPULARITY));
