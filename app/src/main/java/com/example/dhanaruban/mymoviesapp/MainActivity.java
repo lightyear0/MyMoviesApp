@@ -2,6 +2,8 @@ package com.example.dhanaruban.mymoviesapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,7 +24,7 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.net.URL;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AsyncTaskCompleteListener<String> {
 
     private static int mSortOption = 1;
 
@@ -60,7 +62,19 @@ public class MainActivity extends AppCompatActivity {
 
         int mPageNumber = 1;
         URL MovieDBSearchUrl = NetworkUtils.buildUrl(Integer.toString(mPageNumber),apiKey );
-        new MovieDBQueryTask().execute(MovieDBSearchUrl);
+        ConnectivityManager cm =
+                (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+        if(isConnected) {
+            //new MovieDBQueryTask().execute(MovieDBSearchUrl);
+            new MovieDBQueryTask(this, this ).execute(MovieDBSearchUrl);
+        } else{
+            Toast.makeText(this, R.string.NoNetwork, Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     /**
@@ -91,53 +105,35 @@ public class MainActivity extends AppCompatActivity {
         //mErrorMessageDisplay.setVisibility(View.VISIBLE);
     }
 
-    public class MovieDBQueryTask extends AsyncTask<URL, Void, String> {
+    @Override
+    public void onTaskComplete(String searchResults) {
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            //mLoadingIndicator.setVisibility(View.VISIBLE);
-        }
+        //mLoadingIndicator.setVisibility(View.INVISIBLE);
+        if (searchResults != null && !searchResults.equals("")) {
 
-        @Override
-        protected String doInBackground(URL... params) {
-            URL searchUrl = params[0];
-            String searchResults = null;
+            showJsonDataView();
+            //MoviesDB movies = new MoviesDB();
             try {
-                searchResults = NetworkUtils.getResponseFromHttpUrl(searchUrl);
-            } catch (IOException e) {
+                movies = MovieJsonUtils.getMovieContentValuesFromJson(searchResults);
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
-            return searchResults;
+
+            assert movies != null;
+            MoviesDBAdapter moviesDBAdapter = new MoviesDBAdapter(MainActivity.this, movies.getResults());
+
+            // Get a reference to the ListView, and attach this adapter to it.
+            GridView gridView = findViewById(R.id.flavors_grid);
+            gridView.setAdapter(moviesDBAdapter);
+
+        } else {
+
+            showErrorMessage();
         }
 
-        @Override
-        protected void onPostExecute(String searchResults) {
-
-            //mLoadingIndicator.setVisibility(View.INVISIBLE);
-            if (searchResults != null && !searchResults.equals("")) {
-
-                showJsonDataView();
-                //MoviesDB movies = new MoviesDB();
-                try {
-                    movies = MovieJsonUtils.getMovieContentValuesFromJson(searchResults);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                assert movies != null;
-                MoviesDBAdapter moviesDBAdapter = new MoviesDBAdapter(MainActivity.this, movies.getResults());
-
-                // Get a reference to the ListView, and attach this adapter to it.
-                GridView gridView = findViewById(R.id.flavors_grid);
-                gridView.setAdapter(moviesDBAdapter);
-
-            } else {
-
-                showErrorMessage();
-            }
-        }
     }
+
+
 
 
 
