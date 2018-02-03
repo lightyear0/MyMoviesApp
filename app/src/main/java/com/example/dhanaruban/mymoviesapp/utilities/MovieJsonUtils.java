@@ -2,6 +2,10 @@ package com.example.dhanaruban.mymoviesapp.utilities;
 
 import com.example.dhanaruban.mymoviesapp.Movie;
 import com.example.dhanaruban.mymoviesapp.MoviesDB;
+import com.example.dhanaruban.mymoviesapp.Review;
+import com.example.dhanaruban.mymoviesapp.ReviewDB;
+import com.example.dhanaruban.mymoviesapp.Trailer;
+import com.example.dhanaruban.mymoviesapp.TrailerDB;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,6 +42,30 @@ public final class MovieJsonUtils {
     private static final String RELEASE_DATE = "release_date";
 
     private static final String OWM_MESSAGE_CODE = "cod";
+
+    private static final String MOVIE_ID = "id";
+    private static final String TRAILER_RESULTS = "results";
+    private static final String TRAILER_ID = "id";
+    private static final String ISO_639_1 = "iso_639_1";
+    private static final String ISO_3166_1 = "iso_3166_1";
+    private static final String KEY = "key";
+    private static final String SITE= "site";
+    private static final String SIZE = "size";
+    private static final String TYPE = "type";
+
+    private static final String MOVIE_REVIEW__ID = "id";
+    private static final String REVIEW_PAGE = "page";
+    private static final String REVIEW_RESULTS = "results";
+    private static final String REVIEW_TOTAL_PAGES = "total_pages";
+    private static final String REVIEW_TOTAL_RESULTS = "total_results";
+    private static final String REVIEW_ID = "id";
+    private static final String AUTHOR = "author";
+    private static final String CONTENT = "content";
+    private static final String URL = "url";
+
+
+
+
 
     /**
      * This method parses JSON from a web response and returns an array of Strings
@@ -115,5 +143,123 @@ public final class MovieJsonUtils {
         moviesDB.setResults(movies);
 
         return moviesDB;
+    }
+    public static TrailerDB getTrailerContentValuesFromJson(String trailerJsonStr)
+            throws JSONException {
+
+        JSONObject trailerJson = new JSONObject(trailerJsonStr);
+
+        /* Is there an error? */
+        if (trailerJson.has(OWM_MESSAGE_CODE)) {
+            int errorCode = trailerJson.getInt(OWM_MESSAGE_CODE);
+
+            switch (errorCode) {
+                case HttpURLConnection.HTTP_OK:
+                    break;
+                case HttpURLConnection.HTTP_NOT_FOUND:
+                    /* Location invalid */
+                    return null;
+                default:
+                    /* Server probably down */
+                    return null;
+            }
+        }
+
+
+        JSONArray jsonTrailer = trailerJson.getJSONArray(RESULTS);
+
+        TrailerDB trailerDB = new TrailerDB();
+
+        trailerDB.setId(trailerJson.getInt(MOVIE_ID));
+
+
+
+        ArrayList<Trailer> trailer = new ArrayList<>();
+
+
+        for (int i = 0; i < jsonTrailer.length(); i++) {
+
+
+            JSONObject video = jsonTrailer.getJSONObject(i);
+
+            Trailer topTrailers = new Trailer();
+
+
+
+            topTrailers.setId(video.getString(TRAILER_ID));
+            topTrailers.setiso_639_1(video.getString(ISO_639_1));
+            topTrailers.setiso_3166_1(video.getString(ISO_3166_1));
+            topTrailers.setKey(video.getString(KEY));
+            topTrailers.setSite(video.getString(SITE));
+            topTrailers.setSize(video.getInt(SIZE));
+            topTrailers.setType(video.getString(TYPE));
+
+
+
+            trailer.add(topTrailers);
+        }
+
+        trailerDB.setResults(trailer);
+
+        return trailerDB;
+    }
+    public static ReviewDB getReviewContentValuesFromJson(String reviewJsonStr)
+            throws JSONException {
+
+        JSONObject reviewJson = new JSONObject(reviewJsonStr);
+
+        /* Is there an error? */
+        if (reviewJson.has(OWM_MESSAGE_CODE)) {
+            int errorCode = reviewJson.getInt(OWM_MESSAGE_CODE);
+
+            switch (errorCode) {
+                case HttpURLConnection.HTTP_OK:
+                    break;
+                case HttpURLConnection.HTTP_NOT_FOUND:
+                    /* Location invalid */
+                    return null;
+                default:
+                    /* Server probably down */
+                    return null;
+            }
+        }
+
+
+        JSONArray jsonReview = reviewJson.getJSONArray(RESULTS);
+
+        ReviewDB reviewDB = new ReviewDB();
+
+        reviewDB.setId(reviewJson.getInt(MOVIE_REVIEW__ID));
+        reviewDB.setPage(reviewJson.getInt(REVIEW_PAGE));
+        reviewDB.setTotalPages(reviewJson.getInt(REVIEW_TOTAL_PAGES));
+        reviewDB.setTotalResults(reviewJson.getInt(REVIEW_TOTAL_RESULTS));
+
+
+
+        ArrayList<Review> review = new ArrayList<>();
+
+
+        for (int i = 0; i < jsonReview.length(); i++) {
+
+
+            JSONObject comment = jsonReview.getJSONObject(i);
+
+            Review topReviews = new Review();
+
+
+
+            topReviews.setId(comment.getString(REVIEW_ID));
+            topReviews.setAuthor(comment.getString(AUTHOR));
+            topReviews.setContent(comment.getString(CONTENT));
+            topReviews.setUrl(comment.getString(URL));
+
+
+
+            review.add(topReviews);
+        }
+
+        reviewDB.setResults(review);
+
+        return reviewDB;
     }
 }

@@ -6,7 +6,9 @@ package com.example.dhanaruban.mymoviesapp.utilities;
 
 import android.net.Uri;
 
+import com.example.dhanaruban.mymoviesapp.BuildConfig;
 import com.example.dhanaruban.mymoviesapp.MainActivity;
+import com.example.dhanaruban.mymoviesapp.Movie;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,9 +28,17 @@ public class NetworkUtils {
 
     private final static String PATH_MOVIE_TOP_RATED = "movie/top_rated";
 
-    private final static String API_KEY = "api_key";
+    private final static String API_KEY_TOKEN = "api_key";
 
     private final static String PAGE = "page";
+
+
+
+    private final static String TRAILER_PATH ="movie/";
+    private final static String TRAILER_PATH_VIDEO ="/videos";
+
+    private final static String REVIEW_PATH ="movie/";
+    private final static String REVIEW = "/reviews";
 
     /**
      * Builds the URL used to query GitHub.
@@ -39,8 +49,7 @@ public class NetworkUtils {
     public static URL buildUrl(String pageNo, String api_key) {
         String restPath;
         //TODO added API Key to here
-        //String api_key = getString(R.string.api_key);
-        //String api_key = "29346dc366c5346cd0d8d8a4a9b8cc8d";
+          final String API_KEY = BuildConfig.API_KEY;
 
         if (MainActivity.getmSortOption() == 1) {
             restPath = PATH_MOVIE_POPULAR;
@@ -50,8 +59,52 @@ public class NetworkUtils {
 
         Uri builtUri = Uri.parse(MOVIESDB_BASE_URL).buildUpon()
                 .appendEncodedPath(restPath)
-                .appendQueryParameter(API_KEY, api_key)
+                .appendQueryParameter(API_KEY_TOKEN,API_KEY)
                 .appendQueryParameter(PAGE, pageNo)
+                .build();
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        return url;
+    }
+    public static URL buildTrailerUrl(String id) {
+
+        //TODO added API Key to here
+        final String API_KEY = BuildConfig.API_KEY;
+
+        Uri builtUri = Uri.parse(MOVIESDB_BASE_URL).buildUpon()
+                .appendEncodedPath(TRAILER_PATH)
+                .appendEncodedPath(id)
+                .appendEncodedPath(TRAILER_PATH_VIDEO)
+                .appendQueryParameter(API_KEY_TOKEN,API_KEY)
+                .build();
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        return url;
+    }
+    public static URL buildReviewUrl(String id) {
+
+        //TODO added API Key to here
+        final String API_KEY = BuildConfig.API_KEY;
+
+
+
+        Uri builtUri = Uri.parse(MOVIESDB_BASE_URL).buildUpon()
+                .appendEncodedPath(REVIEW_PATH)
+                .appendEncodedPath(id)
+                .appendEncodedPath(REVIEW)
+                .appendQueryParameter(API_KEY_TOKEN,API_KEY)
                 .build();
 
         URL url = null;

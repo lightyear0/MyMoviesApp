@@ -11,28 +11,28 @@ import java.util.ArrayList;
 
 public class Movie implements Parcelable {
 
-    private int vote_count;
+    private int voteCount;
     private int id;
     private int  video;
-    private double vote_average;
+    private double voteAverage;
     private String title;
     private double popularity;
-    private String poster_path;
-    private String original_language;
-    private String original_title;
-    private ArrayList<Integer> genre_ids;
-    private String backdrop_path;
+    private String posterPath;
+    private String originalLanguage;
+    private String originalTitle;
+    private ArrayList<Integer> genreIds;
+    private String backdropPath;
     private boolean adult;
     private String overview;
-    private String release_date;
+    private String releaseDate;
 
     public Movie() { }
     public int getVote_count() {
-        return vote_count;
+        return voteCount;
     }
 
     public void setVote_count(int vote_count) {
-        this.vote_count = vote_count;
+        this.voteCount = vote_count;
     }
 
     public int getId() {
@@ -52,11 +52,11 @@ public class Movie implements Parcelable {
     }
 
     public double getVote_average() {
-        return vote_average;
+        return voteAverage;
     }
 
     public void setVote_average(double vote_average) {
-        this.vote_average = vote_average;
+        this.voteAverage = vote_average;
     }
 
     public String getTitle() {
@@ -76,43 +76,43 @@ public class Movie implements Parcelable {
     }
 
     public String getPoster_path() {
-        return poster_path;
+        return posterPath;
     }
 
     public void setPoster_path(String poster_path) {
-        this.poster_path = poster_path;
+        this.posterPath = poster_path;
     }
 
     public String getOriginal_language() {
-        return original_language;
+        return originalLanguage;
     }
 
     public void setOriginal_language(String original_language) {
-        this.original_language = original_language;
+        this.originalLanguage = original_language;
     }
 
     public String getOriginal_title() {
-        return original_title;
+        return originalTitle;
     }
 
     public void setOriginal_title(String original_title) {
-        this.original_title = original_title;
+        this.originalTitle = original_title;
     }
 
     public ArrayList<Integer> getGenre_ids() {
-        return genre_ids;
+        return genreIds;
     }
 
     public void setGenre_ids(ArrayList<Integer> genre_ids) {
-        this.genre_ids = genre_ids;
+        this.genreIds = genre_ids;
     }
 
     public String getBackdrop_path() {
-        return backdrop_path;
+        return backdropPath;
     }
 
     public void setBackdrop_path(String backdrop_path) {
-        this.backdrop_path = backdrop_path;
+        this.backdropPath = backdrop_path;
     }
 
     public boolean isAdult() {
@@ -132,11 +132,11 @@ public class Movie implements Parcelable {
     }
 
     public String getRelease_date() {
-        return release_date;
+        return releaseDate;
     }
 
     public void setRelease_date(String release_date) {
-        this.release_date = release_date;
+        this.releaseDate = release_date;
     }
 
     @Override
@@ -147,37 +147,37 @@ public class Movie implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
 
-        dest.writeInt(vote_count);
+        dest.writeInt(voteCount);
         dest.writeInt(id);
         dest.writeInt(video);
-        dest.writeDouble(vote_average);
+        dest.writeDouble(voteAverage);
         dest.writeString(title);
         dest.writeDouble(popularity);
-        dest.writeString(poster_path);
-        dest.writeString(original_language);
-        dest.writeString(original_title);
-        dest.writeString(backdrop_path);
+        dest.writeString(posterPath);
+        dest.writeString(originalLanguage);
+        dest.writeString(originalTitle);
+        dest.writeString(backdropPath);
         dest.writeValue(adult);
         dest.writeString(overview);
-        dest.writeString(release_date);
+        dest.writeString(releaseDate);
 
     }
 
     private Movie(Parcel in) {
 
-        vote_count = in.readInt();
+        voteCount = in.readInt();
         id = in.readInt();
         video = in.readInt();
-        vote_average = in.readDouble();
+        voteAverage = in.readDouble();
         title = in.readString();
         popularity = in.readDouble();
-        poster_path = in.readString();
-        original_language = in.readString();
-        original_title = in.readString();
-        backdrop_path = in.readString();
+        posterPath = in.readString();
+        originalLanguage = in.readString();
+        originalTitle = in.readString();
+        backdropPath = in.readString();
         adult = (boolean) in.readValue(Boolean.class.getClassLoader());
         overview = in.readString();
-        release_date = in.readString();
+        releaseDate = in.readString();
     }
 
     public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {

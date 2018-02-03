@@ -6,6 +6,7 @@
         android:layout_height="300dp"
         android:scaleType="centerCrop"
         android:id="@+id/flavor_image"
+        android:adjustViewBounds="true"
         android:contentDescription="@string/post_image_missing"/>
 
     <TextView

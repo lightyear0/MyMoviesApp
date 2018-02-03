@@ -4,11 +4,15 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.example.dhanaruban.mymoviesapp"
-        minSdkVersion 25
+        minSdkVersion 23
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        // Please ensure you have a valid API KEY for MyMoviesApp
+
+        // A valid key will need to be entered
+        buildConfigField("String", "API_KEY", API_KEY)
     }
     buildTypes {
         release {
