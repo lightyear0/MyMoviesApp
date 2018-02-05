@@ -94,6 +94,25 @@ tools:context="com.example.dhanaruban.mymoviesapp.MovieDetailsActivity">
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"/>
+    <TextView
+        android:id="@+id/favorites_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        style="@style/AppTheme"
+        android:text="@string/add_to_favs"
+        />
+
+    <ImageButton
+        android:id="@+id/add_to_fav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/favorite_added"
+        android:background="@null"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
 </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

@@ -26,7 +26,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.dhanaruban.mymoviesapp.MainActivity" />
         </activity>
+        <provider
 
+            android:name=".MovieProvider"
+            android:authorities="com.example.dhanaruban.mymoviesapp" />
     </application>
 
 
