@@ -11,4 +11,5 @@
     <string name="title_activity_movie_details">Movie Details</string>
     <string name="post_image_missing">Post Image Missing</string>
     <string name="NoNetwork">Check your Network Connection</string>
+    <string name="add_to_favs">Add to Favorites:</string>
 </resources>
